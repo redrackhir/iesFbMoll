@@ -16,7 +16,8 @@ import java.util.Scanner;
  */
 public class ExerciciClassesBanco {
 
-    static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private static final ListaClientes clientes = new ListaClientes();
+    
     static ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
     private static Scanner sc = new Scanner(System.in);
 
@@ -24,21 +25,7 @@ public class ExerciciClassesBanco {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Cliente c1 = new Cliente("25654874J", "Pepito Grillo");
-        Cliente c2 = new Cliente("65843216X", "Josefina Bermudez");
-        clientes.add(c1);
-        clientes.add(c2);
-
-        //listarClientes();
-        Cuenta cta1 = new Cuenta(1, 1);
-        Cuenta cta2 = new Cuenta(2, 2);
-
-        cuentas.add(cta1);
-        cuentas.add(cta2);
-
-        //listarCuentas();
-        //System.out.println(cta1.getIdCuenta());
+        cargarDatos();
         menuPrincipal();
     }
 
@@ -81,6 +68,9 @@ public class ExerciciClassesBanco {
                 case 5:
                     ingreso();
                     break;
+                case 6:
+                    checkDb();
+                    break;
                 case 99:
                     exit = true;
                     break;
@@ -96,9 +86,13 @@ public class ExerciciClassesBanco {
         System.out.print("Nombre cliente: ");
         String nombre = sc.next();
 
-        Cliente c = new Cliente(dni, nombre);
-        clientes.add(c);
+        //Cliente c = new Cliente(dni, nombre);
+        clientes.addCliente(dni, nombre);
 
+    }
+    
+    private static void listarClientes() {
+        clientes.listarClientes();
     }
 
     private static void addCuenta() {
@@ -114,17 +108,6 @@ public class ExerciciClassesBanco {
         Cuenta c = new Cuenta(cc, idCliente);
 
         cuentas.add(c);
-    }
-
-    private static void listarClientes() {
-        clearScreen();
-        System.out.println("                              Listado de CLIENTES");
-        System.out.println("======================================================================================");
-        Iterator<Cliente> clientesIt = clientes.iterator();
-        while (clientesIt.hasNext()) {
-            System.out.println(clientesIt.next().toString());
-        }
-        pressAKey();
     }
 
     private static void listarCuentas() {
@@ -152,9 +135,7 @@ public class ExerciciClassesBanco {
             System.out.println("Cta.: " + cuentas.get(idx).getCodigoCuentaCompleto());
             System.out.println("Saldo anterior: " + cuentas.get(idx).getSaldo());
             cuentas.get(idx).ingreso(cant);
-            
-          
-            
+
             System.out.println("Saldo actual..: " + cuentas.get(idx).getSaldo());
         } else {
             System.out.print("La Cuenta '" + nroCta + "' no existe!!!\n");
@@ -180,6 +161,17 @@ public class ExerciciClassesBanco {
             }
         }
         return -1;
+    }
+
+    private static void checkDb() {
+        Database db = new Database();
+        Cliente c = db.getCliente(1);
+        System.out.println(c.toString());
+        pressAKey();
+    }
+
+    private static void cargarDatos() {
+        clientes.loadFromDb();
     }
 
 }
