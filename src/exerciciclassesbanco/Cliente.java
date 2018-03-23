@@ -18,11 +18,11 @@ public class Cliente {
     private int edad;
     private char sexo = '?';
     private String ctaAsociada;
-    
+
     static int getNewId() {
-        return nroClientes+1;
+        return nroClientes + 1;
     }
-    
+
     static void nuevoCliente() {
         nroClientes++;
     }
@@ -40,6 +40,10 @@ public class Cliente {
         this.sexo = sexo;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getDni() {
         return dni;
     }
@@ -52,10 +56,6 @@ public class Cliente {
     public String toString() {
         return "Id: [" + id + "] - " + nombre + ", DNI: " + dni + ", edad: "
                 + edad + ", sexo: " + sexo + ", cta. asociada: " + ctaAsociada;
-    }
-
-    public int getId() {
-        return id;
     }
 
 }

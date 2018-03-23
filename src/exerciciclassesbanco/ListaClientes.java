@@ -16,29 +16,46 @@ import java.util.Scanner;
 public class ListaClientes {
 
     private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-
+    private static Database db = new Database();
     private static Scanner sc = new Scanner(System.in);
 
     public ListaClientes() {
-        
+        loadFromDb();
+    }
+
+    public void newCliente(String dni, String nombre) {
+        addCliente(dni, nombre);
+        Cliente c = new Cliente(dni, nombre);
+        db.insertCliente(c);
     }
     
     public void addCliente(String dni, String nombre) {
-        clientes.add(new Cliente(dni, nombre));
+        // Añade a la lista local
+        Cliente c = new Cliente(dni, nombre);
+        clientes.add(c);
     }
 
     public static void listarClientes() {
         clearScreen();
-        System.out.println("                              Listado de CLIENTES");
-        System.out.println("======================================================================================");
-        Iterator<Cliente> clientesIt = clientes.iterator();
-        while (clientesIt.hasNext()) {
-            System.out.println(clientesIt.next().toString());
+        System.out.println("                  Listado de CLIENTES");
+        System.out.println("=========================================================");
+        System.out.println(" Id       D.N.I.  Nombre cliente");
+        //                  123 123456789012 123456789 123456789 123456789 123456789 
+        System.out.println("---------------------------------------------------------");
+        Iterator<Cliente> cIt = clientes.iterator();
+        int count = 0;
+        while (cIt.hasNext()) {
+            Cliente c = cIt.next();
+            System.out.printf("%3.3s %12.12s %-40s\n",c.getId(),c.getDni(),c.getNombre());
+            count++;
         }
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Total: " + count + " clientes.\n");
+
         pressAKey();
     }
-    
-    public void loadFromDb() {
+
+    private void loadFromDb() {
         Database db = new Database();
         db.loadClientesFromDb(this);
     }

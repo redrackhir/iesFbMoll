@@ -7,6 +7,7 @@ package exerciciclassesbanco;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,6 +24,7 @@ public class Database {
     private final String dbName = "exerciciBanco";
     private final String user = "redrackhir";
     private final String dbPassword = "159753";
+    private final String strUrl = "jdbc:derby://localhost:1527/" + dbName;
     private Connection dbConn = null;
 
     public Database() {
@@ -49,7 +51,7 @@ public class Database {
 
         dbConn = null;
         //String strUrl = "jdbc:derby://localhost:1527/" + dbName;
-        String strUrl = "jdbc:derby://localhost:1527/exerciciBanco";
+        //String strUrl = "jdbc:derby://localhost:1527/exerciciBanco";
         System.out.println("Conectando a: " + strUrl);
         try {
             dbConn = DriverManager.getConnection(strUrl, user, dbPassword);
@@ -60,7 +62,7 @@ public class Database {
     }
 
     public Cliente getCliente(int idCliente) {
-        String strUrl = "jdbc:derby:" + dbName + ";user=" + user + ";password=" + dbPassword;
+        //String strUrl = "jdbc:derby:" + dbName + ";user=" + user + ";password=" + dbPassword;
         String strSql = "SELECT * FROM clientes WHERE id=" + idCliente;
         try {
             //dbConn = DriverManager.getConnection(strUrl);
@@ -79,7 +81,7 @@ public class Database {
     }
 
     public void loadClientesFromDb(ListaClientes lista) {
-        String strUrl = "jdbc:derby:" + dbName + ";user=" + user + ";password=" + dbPassword;
+
         String strSql = "SELECT dni, nombre FROM clientes";
         try {
             //dbConn = DriverManager.getConnection(strUrl);
@@ -110,4 +112,35 @@ public class Database {
         return 1;
     }
      */
+    public void insertCliente(Cliente c) {
+        try {
+            String insertClienteSql = "INSERT INTO clientes (ID, DNI, NOMBRE) "
+                    + "VALUES (?,?,?)";
+            PreparedStatement prepStat = dbConn.prepareStatement(insertClienteSql);
+            prepStat.setInt(1, getNumRows("clientes") + 1);
+            prepStat.setString(2, c.getDni());
+            prepStat.setString(3, c.getNombre());
+            // execute insert SQL stetement
+            prepStat.execute();
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+
+    }
+
+    private int getNumRows(String tabla) {
+        try {
+            //dbConn = DriverManager.getConnection(strUrl);
+            Statement st = dbConn.createStatement();
+            ResultSet rs = st.executeQuery("select count(*) from " + tabla);
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        return -1;
+
+    }
 }

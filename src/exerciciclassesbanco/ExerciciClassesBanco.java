@@ -7,7 +7,6 @@ package exerciciclassesbanco;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Scanner;
 
 /**
@@ -87,7 +86,7 @@ public class ExerciciClassesBanco {
         String nombre = sc.next();
 
         //Cliente c = new Cliente(dni, nombre);
-        clientes.addCliente(dni, nombre);
+        clientes.newCliente(dni, nombre);
 
     }
     
@@ -171,7 +170,7 @@ public class ExerciciClassesBanco {
     }
 
     private static void cargarDatos() {
-        clientes.loadFromDb();
+        //clientes.loadFromDb();
     }
 
 }
