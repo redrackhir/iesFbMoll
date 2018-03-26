@@ -14,8 +14,6 @@ import java.util.Scanner;
  */
 public class GestiodeMultes {
 
-    public static final double MAXVEL = 120;
-    private static final int TAMANO = 6;
     private static Scanner sc = new Scanner(System.in).useDelimiter(" |\r\n");
     private static final VehicleRegister registre = new VehicleRegister();
 
@@ -106,7 +104,7 @@ public class GestiodeMultes {
         }
     }
 
-    private static void pressAKey() {
+    public static void pressAKey() {
         System.out.print("\nPulse ENTER para continuar... ");
         sc.nextLine();
     }

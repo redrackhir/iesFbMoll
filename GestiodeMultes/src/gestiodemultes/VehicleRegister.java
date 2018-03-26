@@ -5,7 +5,6 @@
 package gestiodemultes;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -13,7 +12,8 @@ import java.util.Date;
  */
 public class VehicleRegister {
 
-    private final static int MAX_REGS = 100;    // Capacitat del registre
+    public static final double SPEED_MAX = 120;
+    private final static int MAX_SIZE = 100;    // Capacitat del registre
     private static ArrayList<Registre> registre;
 
     public VehicleRegister() {
@@ -21,19 +21,32 @@ public class VehicleRegister {
     }
 
     public void entrada(String matricula, double hora, double kilometre) {
+        // Si ya hay una entrada previa, la borra
+        int indexVehicle = getVehicleEntrance(matricula);
+        if (indexVehicle >= 0) {
+            registre.remove(indexVehicle);
+        }
+        // Si el registro esta al maximo, borra el mas antiguo
+        if (registre.size() > MAX_SIZE) {
+            registre.remove(0);
+        }
+        // Y finalmente añade el nuevo registro
         registre.add(new Registre(matricula, hora, kilometre, true));
     }
 
     public void salida(String matricula, double hora, double kilometre) {
         // Comprueba si tiene entrada...
         double kmHr = 0;
-        int indexVehicle = getFirstVehicleEntrance(matricula);
+        int indexVehicle = getVehicleEntrance(matricula);
         if (indexVehicle >= 0) {
             // ... y calcula la velocidad media
             Registre r = registre.get(indexVehicle);
             kmHr = getVelMedia(r.getHora(), r.getKilometre(), hora, kilometre);
+            if (kmHr > SPEED_MAX) {
+                expedirMulta(matricula, kilometre, hora, kmHr);
+            }
+            registre.remove(getVehicleIndex(matricula));
         }
-        registre.remove(getVehicleIndex(matricula));
     }
 
     @Override
@@ -57,10 +70,10 @@ public class VehicleRegister {
     }
 
     private double getVelMedia(double horaIn, double kmStart, double horaOut, double kmEnd) {
-        return ((horaOut - horaIn)/(kmEnd - kmStart));
+        return ((kmEnd - kmStart) / (horaOut - horaIn));
     }
 
-    private int getFirstVehicleEntrance(String matricula) {
+    private int getVehicleEntrance(String matricula) {
         int idx = 0;
         for (Registre reg : registre) {
             if (reg.isInn() && matricula.equalsIgnoreCase(reg.getMatricula())) {
@@ -69,6 +82,19 @@ public class VehicleRegister {
             idx++;
         }
         return -1;
+    }
+
+    private void expedirMulta(String matricula, double km, double hora, double kmHr) {
+        // recrear expedicion de multa
+        System.out.println("+-------------------------------+");
+        System.out.println("| Multa por exceso de velocidad |");
+        System.out.println("+-------------------------------+");
+        System.out.println("  Matrícula....: " + matricula);
+        System.out.println("  Kmtr.........: " + km);
+        System.out.println("  Hora.........: " + hora);
+        System.out.println("  Velocidad....: " + kmHr + "Km/hr.");
+        System.out.println("  Max.permitido: " + SPEED_MAX + "Km/hr.\n");
+        GestiodeMultes.pressAKey();
     }
 
 }
