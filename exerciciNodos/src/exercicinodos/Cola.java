@@ -11,50 +11,65 @@ package exercicinodos;
  */
 public class Cola {
 
-    private Nodo cabeza = null;
+    private Nodo head = null;
+    private Nodo last = null;
+    private int count = 0;
 
     public Cola() {
     }
 
     public void add(Nodo nodo) {
-        Nodo puntero = cabeza;
+        Nodo puntero = head;
 
-        if (cabeza == null) {
-            cabeza = nodo;
+        if (head == null) {
+            head = nodo;
+            last = nodo;
         } else {
-            while (puntero.sig != null) {
-                puntero = puntero.sig;
-            }
-
-            puntero.sig = nodo;
+            last.sig = nodo;
+            last = nodo;
         }
-        
-        System.out.println("Se ha añadido '" + nodo.info + "'");
+        count++;
+        System.out.println("\tAñadido '" + nodo.info + "'");
     }
 
     public void recorre() {
-        Nodo puntero = cabeza;
+        Nodo puntero = head;
         if (puntero == null) {
             System.err.println("Cola vacía!");
         } else {
-            System.out.print("Quedan en cola: ");
+            System.out.print("En cola: ");
             do {
-                System.out.print("<="+puntero.info);
+                System.out.print("<=" + puntero.info);
                 puntero = puntero.sig;
             } while (puntero != null);
             System.out.println();
         }
     }
 
+    public Nodo cerca(String info) {
+        if (count == 0) {
+            System.err.println("Cola vacía!");
+            return null;
+        }
+        Nodo puntero = head;
+        while (puntero != null) {
+            if (puntero.info.equalsIgnoreCase(info)) {
+                return puntero;
+            }
+            puntero = puntero.sig;
+        }
+        return null;
+    }
+
     public void extrae() {
         // Extrae el primero de la cola (FIFO)
-        Nodo puntero = cabeza;
+        Nodo puntero = head;
 
-        if (cabeza == null) {
+        if (head == null) {
             System.err.println("Cola vacía!");
         } else {
-            System.out.println("Se ha extraído '" + cabeza.info + "'");
-            cabeza = cabeza.sig;
+            System.out.println("\tExtraído '" + head.info + "'");
+            head = head.sig;
         }
     }
 }
