@@ -70,6 +70,19 @@ public class Cola {
         } else {
             System.out.println("\tExtraído '" + head.info + "'");
             head = head.sig;
+            count--;
         }
+    }
+
+    public int size() {
+        return count;
+    }
+
+    public Nodo getFirst() {
+        return head;
+    }
+
+    public Nodo getLast() {
+        return last;
     }
 }
