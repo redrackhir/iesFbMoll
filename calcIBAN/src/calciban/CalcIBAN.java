@@ -82,9 +82,9 @@ public class CalcIBAN {
         // Calculos bloque dcho.
         sumaBloque = 0;
         for (int i = 0; i < rBlock.length(); i++) {
-            int offset=8;
+            int offset = 8;
             int digito = Integer.parseInt(rBlock.substring(i, i + 1));
-            sumaBloque += digito * tokens[i+offset];
+            sumaBloque += digito * tokens[i + offset];
         }
 
         int secondDigit = 11 - (sumaBloque % 11);
