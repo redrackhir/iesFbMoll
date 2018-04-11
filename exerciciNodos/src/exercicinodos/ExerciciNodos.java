@@ -19,32 +19,41 @@ public class ExerciciNodos {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Cola cola = new Cola();
-
+        /* Cola cola = new Cola();
+        
         cola.add(new Nodo("Primero"));
         cola.add(new Nodo("Segundo"));
         cola.add(new Nodo("Tercero"));
-
+        
         cola.recorre();
-
+        
         cola.add(new Nodo("Cuarto"));
-
+        
         cola.extrae();
-
+        
         cola.recorre();
-
+        
         cola.add(new Nodo("Quinto"));
-
+        
         cola.extrae();
         cola.extrae();
         cola.extrae();
         cola.extrae();
-
+        
         long endTime = System.currentTimeMillis() + 100;
         do {
         } while (endTime > System.currentTimeMillis());
         
-        cola.recorre();
+        cola.recorre();*/
+        
+        Pila pila = new Pila();
+        
+        pila.add(new Nodo("Primero"));
+        pila.add(new Nodo("Segundo"));
+        pila.add(new Nodo("Tercero"));
+        
+        pila.recorre();
+        
     }
 
 }
