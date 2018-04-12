@@ -35,4 +35,16 @@ public class YatzyTest {
         assertEquals(0,Yatzy.yatzy(4,4,4,4,6));
     }
     
+    @Test
+    public void unos() {
+        int esperado = 2;
+        int actual = Yatzy.ones(1,1,2,3,4);
+        assertEquals(esperado,actual);
+        assertEquals(3,Yatzy.ones(1,1,1,4,5));
+        assertEquals(4,Yatzy.ones(1,1,1,1,5));
+        assertEquals(5,Yatzy.ones(1,1,1,1,1));
+        assertEquals(1,Yatzy.ones(2,4,5,3,1));
+    }
+    
+    
 }
