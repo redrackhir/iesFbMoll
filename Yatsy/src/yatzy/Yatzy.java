@@ -19,25 +19,58 @@ public class Yatzy {
         return count;
     }
 
-    public static int yatzy(int d1, int d2, int d3, int d4, int d5) {
-        int[] dados = {d1, d2, d3, d4, d5};
-        int check = d1;
-        for (int i = 1; i < 5; i++) {
-            if (check != dados[i]) {
-                return 0;
+    public static int yatzy(int... dice) {
+        for (int i = 0; i < dice.length; i++) {
+            for (int j = 0; j < dice.length; j++) {
+                if (dice[i] != dice[j]) {
+                    return 0;
+                }
             }
         }
         return 50;
     }
 
-    public static int ones(int... dice) {
+    private static int countDiceSameValue(int value, int... dice) {
         int count = 0;
         for (int i = 0; i < dice.length; i++) {
-            if (dice[i] == 1) {
+            if (dice[i] == value) {
                 count++;
             }
         }
         return count;
     }
 
+    public static int ones(int... dice) {
+        return countDiceSameValue(1, dice);
+    }
+
+    public static int twos(int... dice) {
+        return countDiceSameValue(2, dice);
+    }
+
+    public static int threes(int... dice) {
+        return countDiceSameValue(3, dice);
+    }
+
+    public static int fours(int... dice) {
+        return countDiceSameValue(4, dice);
+    }
+
+    public static int fives(int... dice) {
+        return countDiceSameValue(5, dice);
+    }
+
+    public static int sixes(int... dice) {
+        return countDiceSameValue(6, dice);
+    }
+
+    public static int pair(int... dice) {
+        int score = 0;
+        for (int die : dice) {
+            if (countDiceSameValue(die, dice) >= die * 2) {
+                score = score < die * 2 ? die * 2 : score;
+            }
+        }
+        return score;
+    }
 }
