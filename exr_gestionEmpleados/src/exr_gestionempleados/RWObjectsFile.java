@@ -25,24 +25,23 @@ class RWObjectsFile {
         return System.getProperty("user.dir") + "/";
     }
 
-    static void load(String fileName, ArrayList<Comercial> destinyObj) {
+    static ArrayList<?> load(String fileName) {
         FileInputStream fos;
         ObjectInputStream oos;
-        Comercial c;
+        ArrayList<?> readedObject = null;
         try {
             fos = new FileInputStream(fileName);
             oos = new ObjectInputStream(fos);
-            destinyObj = (ArrayList<Comercial>) oos.readObject();
-
+            readedObject = (ArrayList<?>) oos.readObject();
             oos.close();
             fos.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(RWObjectsFile.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(RWObjectsFile.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+            //Logger.getLogger(RWObjectsFile.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("No se encuentra el archivo '" + fileName + "'");
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(RWObjectsFile.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return readedObject;
     }
 
     static boolean save(String fileName, Object obj) {

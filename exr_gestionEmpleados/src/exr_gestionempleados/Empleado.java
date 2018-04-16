@@ -9,7 +9,7 @@ package exr_gestionempleados;
  *
  * @author soib1a20
  */
-public abstract class Empleado {
+public abstract class Empleado implements java.io.Serializable {
 
     public final double PLUS = 300f;
     private String nombre;
@@ -51,7 +51,8 @@ public abstract class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado: " + nombre + ", " + edad + " años. Salario mensual: " + salario + '€';
+        String frmt = "%30s %2d %4f";
+        return String.format(frmt, nombre, edad, salario);
     }
 
 }

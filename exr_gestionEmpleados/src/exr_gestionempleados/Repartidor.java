@@ -9,7 +9,7 @@ package exr_gestionempleados;
  *
  * @author soib1a20
  */
-public class Repartidor extends Empleado {
+public class Repartidor extends Empleado implements java.io.Serializable {
 
     private String zona;
 

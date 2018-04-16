@@ -26,22 +26,34 @@ public class Main {
         comerciales.add(new Comercial("José", 32, 900, 160));
         comerciales.add(new Comercial("Luís", 45, 1250, 170));*/
 
-        // Añadir desde disco
-        RWObjectsFile.load("comerciales.ser", comerciales);
+        // Cargar datos iniciales
+        GestionEmpleados.loadEntries();
 
-        // Añadir repartidores al array
+        // Iniciar bucle menu principal
+        String opt = "";
+        do {
+            printMenu();
+            opt = Tools.getText();
+            switch (opt) {
+                case "1":
+                    GestionEmpleados.start();
+                    break;
+            }
+        } while (!opt.equalsIgnoreCase("X"));
+
+        /*  // Añadir repartidores al array
         repartidores.add(new Repartidor("Fernando", 23, 800, "zona 1"));
         repartidores.add(new Repartidor("Gabriel", 30, 1200, "zona 2"));
         repartidores.add(new Repartidor("Francisco", 25, 900, "zona 3"));
         repartidores.add(new Repartidor("Angel", 27, 1250, "zona 4"));
-
+        
         listarEmpleados();
-
+        
         Comercial com = comerciales.get(1);
         System.out.println("Hoy es el cumple de " + com.getNombre() + ", felicidades!!");
         com.setEdad(31);
         System.out.println(com.toString() + "\n");
-
+        
         Repartidor rep = repartidores.get(0);
         Repartidor rep2 = repartidores.get(2);
         System.out.println(rep.getNombre() + " y " + rep2.getNombre() + " intercambian sus zonas...");
@@ -50,20 +62,19 @@ public class Main {
         rep2.setZona(temp);
         System.out.println(rep);
         System.out.println(rep2 + "\n");
-
-        RWObjectsFile.save("comerciales.ser", comerciales);
+        
+        RWObjectsFile.save("comerciales.ser", comerciales);*/
     }
 
-    private static void listarEmpleados() {
-        // Comerciales
-        for (Empleado emp : comerciales) {
-            System.out.println(emp.toString());
-        }
-        // Repartidores
-        for (Empleado rep : repartidores) {
-            System.out.println(rep.toString());
-        }
-        System.out.println();
+    private static void printMenu() {
+        Tools.clearScreen();
+        System.out.println("==================================================");
+        System.out.println("|          M E N U   P R I N C I P A L           |");
+        System.out.println("==================================================\n");
+        System.out.println("1.- Empleados\n");
+        System.out.println("X.- Salir");
+        System.out.println("--------------------------------------------------");
+        System.out.print("Escoja opción: ");
     }
 
 }
