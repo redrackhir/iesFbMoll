@@ -70,8 +70,8 @@ public class Exr_Videoclub {
     }
 
     private static void mostrarTopOne() {
-        System.out.println("Serie con más temporadas: " + serieConMasTemporadas().getTitulo());
-        System.out.println("Videojuego con más horas: " + videojuegoConMasHoras().getTitulo());
+        System.out.println("Serie con más temporadas: " + serieConMasTemporadas());
+        System.out.println("Videojuego con más horas: " + videojuegoConMasHoras());
     }
 
     private static void entregarAlgunos() {
