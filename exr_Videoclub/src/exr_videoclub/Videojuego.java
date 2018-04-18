@@ -67,8 +67,7 @@ public class Videojuego implements Entregable {
     @Override
     public String toString() {
         String frmt = "Videojuego  %-30s %-20s %-20s %2d  %2s";
-
-        return String.format(frmt, titulo, genero, companyia, horas, entregado ? "SI":"NO");
+        return String.format(frmt, titulo, genero, companyia, horas, entregado ? "SI" : "NO");
     }
 
     @Override
