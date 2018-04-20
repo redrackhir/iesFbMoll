@@ -6,7 +6,6 @@
 package gestiparking.view;
 
 import gestiparking.controller.AccsMainFrame;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
