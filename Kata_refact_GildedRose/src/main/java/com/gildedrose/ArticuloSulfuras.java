@@ -6,7 +6,7 @@ package com.gildedrose;
  */
 
 
-public class ArticuloSulfuras extends ArticuloComun implements Updateable {
+public class ArticuloSulfuras extends NewItem implements Updateable {
     
     public ArticuloSulfuras(String name, int sellIn, int quality) {
         super(name, sellIn, quality);

@@ -4,7 +4,7 @@ package com.gildedrose;
  *
  * @author red rackhir
  */
-public class ArticuloBackstage extends ArticuloComun implements Updateable {
+public class ArticuloBackstage extends NewItem implements Updateable {
 
     public ArticuloBackstage(String name, int sellIn, int quality) {
         super(name, sellIn, quality);

@@ -4,7 +4,7 @@ package com.gildedrose;
  *
  * @author red rackhir
  */
-public class ArticuloBrie extends ArticuloComun implements Updateable {
+public class ArticuloBrie extends NewItem implements Updateable {
 
     public ArticuloBrie(String name, int sellIn, int quality) {
         super(name, sellIn, quality);
