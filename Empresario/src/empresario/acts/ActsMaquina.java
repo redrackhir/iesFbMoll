@@ -20,18 +20,18 @@ public class ActsMaquina {
     private FrmMaquina frame;
     private Maquina maq;
 
-    public ActsMaquina(FrmMaquina frame) {
+    public ActsMaquina(FrmMaquina frame, Maquina maq) {
         this.frame = frame;
-        this.maq = Empresario.getMaquina(0);
+        this.maq = maq;
     }
 
     public void initComponents() {
         frame.getjButton1().setText("Pasa turno");
         frame.getjToggleButton1().setText("Start / Stop");
+        frame.setTitle(maq.getName() + "#" + maq.getUid());
     }
 
     public void fillData() {
-        frame.setTitle(maq.getName());
         // Primera linea
         String frmt = "Estado: %d%%   %s   Prod. x turno: %.2f";
         String info = String.format(frmt, maq.getMaintState(),
@@ -58,7 +58,7 @@ public class ActsMaquina {
             model.addElement(p.getName() + " - " + maq.getProdXTurn());
         }
         frame.getjList2().setModel(model);
-        
+
         // Boton On/Off
         frame.getjToggleButton1().setSelected(maq.isEnabled());
 

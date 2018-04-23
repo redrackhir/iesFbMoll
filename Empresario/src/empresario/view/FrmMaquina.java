@@ -6,6 +6,7 @@
 package empresario.view;
 
 import empresario.acts.ActsMaquina;
+import empresario.model.Maquina;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,9 +23,9 @@ public class FrmMaquina extends javax.swing.JFrame {
     /**
      * Creates new form Maquina
      */
-    public FrmMaquina() {
+    public FrmMaquina(Maquina maq) {
         initComponents();
-        acciones = new ActsMaquina(this);
+        acciones = new ActsMaquina(this, maq);
         acciones.initComponents();
         acciones.fillData();
     }
@@ -49,7 +50,7 @@ public class FrmMaquina extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(700, 400));
 
         jLabel1.setText("jLabel1");

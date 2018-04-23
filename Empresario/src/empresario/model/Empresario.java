@@ -18,6 +18,7 @@
  */
 package empresario.model;
 
+import empresario.view.FrmMain;
 import empresario.view.FrmMaquina;
 import java.util.ArrayList;
 
@@ -47,7 +48,7 @@ public class Empresario {
         prodCreated.add(stock.get(2));
 
         maquinas.add(new Maquina(1, "Embotelladora", 50.0, 180000.0, 100, 100, 25, prodConsumed, prodCreated));
-        maquinas.get(0).enable();
+        maquinas.add(new Maquina(2, "Embotelladora", 50.0, 50000.0, 75, 75, 38, prodConsumed, prodCreated));
 
          /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -76,13 +77,17 @@ public class Empresario {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmMaquina().setVisible(true);
+                new FrmMain().setVisible(true);
             }
         });
     }
 
     public static Maquina getMaquina(int i) {
         return maquinas.get(i);
+    }
+
+    public static ArrayList<Maquina> getMaquinas() {
+        return maquinas;
     }
 
 }
