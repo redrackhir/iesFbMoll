@@ -129,6 +129,7 @@ public class Yatzy {
 
         for (int die : dice) {
             int count = countDiceSameValue(die, dice);
+            //TODO: no funciona
         }
         return 0;
     }
