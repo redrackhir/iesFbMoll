@@ -112,4 +112,47 @@ public class YatzyTest {
         assertEquals("3, 3, 3, 3, 1", 6, Yatzy.pair(3, 3, 3, 3, 1));
     }
 
+    @Test
+    public void dos_pares_puntua_dos_pares_cualquiera() {
+        assertEquals("1, 1, 2, 3, 3", 8, Yatzy.twoPairs(1, 1, 2, 3, 3));
+        assertEquals("1, 1, 2, 3, 4", 0, Yatzy.twoPairs(1, 1, 2, 3, 4));
+        assertEquals("1, 1, 2, 2, 2", 6, Yatzy.twoPairs(1, 1, 2, 2, 2));
+    }
+
+    @Test
+    public void trio_puntua_tres_dados_iguales() {
+        assertEquals(9, Yatzy.threeOfKind(3, 3, 3, 4, 5));
+        assertEquals(0, Yatzy.threeOfKind(3, 3, 4, 5, 6));
+        assertEquals(9, Yatzy.threeOfKind(3, 3, 3, 3, 1));
+    }
+
+    @Test
+    public void cuarteto_puntua_cuatro_dados_iguales() {
+        assertEquals(8, Yatzy.fourOfKind(2,2,2,2,5));
+        assertEquals(0, Yatzy.fourOfKind(2,2,2,5,5 ));
+        assertEquals(8, Yatzy.fourOfKind(2,2,2,2,2));
+    }
+
+    @Test
+    public void escalera_menor_puntua_de_1_a_5() {
+        assertEquals(15, Yatzy.smallStraight(1,2,3,4,5));
+        assertEquals(15, Yatzy.smallStraight(5,4,3,2,1 ));
+        assertEquals(0, Yatzy.smallStraight(1,2,3,6,5));
+    }
+
+    @Test
+    public void escalera_mayor_puntua_de_2_a_6() {
+        assertEquals(20, Yatzy.largeStraight(6,2,3,4,5));
+        assertEquals(20, Yatzy.largeStraight(5,2,4,3,6 ));
+        assertEquals(0, Yatzy.largeStraight(1,2,3,6,5));
+    }
+
+    @Test
+    public void full_puntua_un_trio_con_un_par() {
+        assertEquals(8, Yatzy.fullHouse(1,1,2,2,2));
+        assertEquals(0, Yatzy.fullHouse(2,2,3,3,4 ));
+        assertEquals(0, Yatzy.fullHouse(4,4,4,4,4));
+        assertEquals(23, Yatzy.fullHouse(4,4,5,5,5));
+    }
+
 }
