@@ -7,16 +7,16 @@ package com.gildedrose;
 public class Main {
 
     static GildedRose miTienda;
-    static ArticuloComun[] items;
+    static NewItem[] items;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        items = new ArticuloComun[]{new ArticuloBrie("Aged Brie", 10, 3),
+        items = new NewItem[]{new ArticuloBrie("Aged Brie", 10, 3),
             new ArticuloBrie("Aged Brie from Winterfell", 3, 5),
-            new ArticuloComun("Elixir of Moongoose", 3, 5),
+            new NewItem("Elixir of Moongoose", 3, 5),
             new ArticuloBackstage("Backstage pass for 7Eleven", 11, 8),
             new ArticuloConjured("Conjured wand of new Age", 3, 5),
             new ArticuloSulfuras("Sulfuras, Hand of Ragnaros", 3, 5)};
@@ -38,7 +38,7 @@ public class Main {
     }
 
     public static void showStatus() {
-        for (ArticuloComun item : items) {
+        for (NewItem item : items) {
             System.out.println(item);
         }
     }

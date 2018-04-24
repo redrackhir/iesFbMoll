@@ -20,7 +20,7 @@ public class ArticuloComunTest {
         System.out.println("updateQuality");
         // TODO review the generated test code and remove the default call to fail.
         GildedRose rck;
-        ArticuloComun[] items = new ArticuloComun[]{new ArticuloComun("+5 Dexterity Vest", 0, 0)};
+        NewItem[] items = new NewItem[]{new NewItem("+5 Dexterity Vest", 0, 0)};
 
         GildedRose app = new GildedRose(items);
 

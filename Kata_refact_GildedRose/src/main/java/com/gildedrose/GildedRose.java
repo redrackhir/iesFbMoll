@@ -1,15 +1,16 @@
 package com.gildedrose;
 
 class GildedRose {
-    ArticuloComun[] items;
 
-    public GildedRose(ArticuloComun[] items) {
+    NewItem[] items;
+
+    public GildedRose(NewItem[] items) {
         this.items = items;
     }
 
     public void updateQuality() {
-       for (ArticuloComun item:items) {
-           item.updateQuality();
-       }
+        for (NewItem item : items) {
+            item.updateQuality();
+        }
     }
 }
