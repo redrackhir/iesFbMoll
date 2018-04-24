@@ -105,11 +105,11 @@ public class YatzyTest {
     public void pares_puntua_cualquier_par() {
         int esperado = 4;
         int actual = Yatzy.pair(2, 1, 2, 6, 4);
-        assertEquals(esperado, actual);
-        assertEquals(12, Yatzy.sixes(6, 6, 4, 2, 5));
-        assertEquals(6, Yatzy.sixes(2, 6, 6, 6, 4));
-        assertEquals(8, Yatzy.sixes(2, 4, 6, 4, 1));
-        assertEquals(6, Yatzy.sixes(3, 3, 3, 3, 1));
+        assertEquals("2, 1, 2, 6, 4", esperado, actual);
+        assertEquals("6, 6, 4, 2, 5", 12, Yatzy.pair(6, 6, 4, 2, 5));
+        assertEquals("2, 6, 6, 6, 4", 12, Yatzy.pair(2, 6, 6, 6, 4));
+        assertEquals("2, 4, 6, 4, 1", 8, Yatzy.pair(2, 4, 6, 4, 1));
+        assertEquals("3, 3, 3, 3, 1", 6, Yatzy.pair(3, 3, 3, 3, 1));
     }
 
 }

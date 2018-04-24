@@ -67,8 +67,9 @@ public class Yatzy {
     public static int pair(int... dice) {
         int score = 0;
         for (int die : dice) {
-            if (countDiceSameValue(die, dice) >= die * 2) {
-                score = score < die * 2 ? die * 2 : score;
+            int count = countDiceSameValue(die,dice);
+            if ((count >= 2) && ((die*2) > score)) {
+                score = die*2;
             }
         }
         return score;
