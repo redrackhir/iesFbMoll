@@ -9,6 +9,7 @@ import empresario.model.Empresario;
 import empresario.model.Maquina;
 import empresario.view.FrmMain;
 import empresario.view.FrmMaquina;
+import empresario.view.FrmMaquinasOverview;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
 
@@ -22,6 +23,7 @@ public class ActsMain {
 
     public ActsMain(FrmMain frame) {
         this.frame = frame;
+        frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
     public void initComponents() {
@@ -44,6 +46,16 @@ public class ActsMain {
 
     private void showMachine(ActionEvent evt) {
         int index = Integer.valueOf(evt.getActionCommand()) - 1;
-        new FrmMaquina(Empresario.getMaquina(index)).setVisible(true);
+        FrmMaquina maq = new FrmMaquina(Empresario.getMaquina(index));
+        maq.setVisible(true);
+        frame.getjDesktopPane1().add(maq);
+        //frame.pack();
+
+    }
+
+    public void showMachinesOverview() {
+        FrmMaquinasOverview maq = new FrmMaquinasOverview();
+        maq.setVisible(true);
+        frame.getjDesktopPane1().add(maq);
     }
 }

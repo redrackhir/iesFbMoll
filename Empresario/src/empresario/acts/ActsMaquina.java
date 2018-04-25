@@ -9,6 +9,9 @@ import empresario.model.Empresario;
 import empresario.model.Maquina;
 import empresario.model.Product;
 import empresario.view.FrmMaquina;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
@@ -26,7 +29,10 @@ public class ActsMaquina {
     }
 
     public void initComponents() {
-        frame.getjButton1().setText("Pasa turno");
+        frame.getjButton1().setText("Ok");
+        frame.getjButton2().setText("Cancel");
+        frame.getjLabel6().setText("Materia Prima");
+        frame.getjLabel7().setText("Productos");
         frame.getjToggleButton1().setText("Start / Stop");
         frame.setTitle(maq.getName() + "#" + maq.getUid());
     }
@@ -73,5 +79,17 @@ public class ActsMaquina {
     public void nextTurn() {
         maq.nextTurn();
         fillData();
+    }
+
+    public void btnOk() {
+        try {
+            frame.setClosed(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(ActsMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void btnCancel() {
+        btnOk();
     }
 }
