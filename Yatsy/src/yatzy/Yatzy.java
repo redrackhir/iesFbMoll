@@ -67,10 +67,71 @@ public class Yatzy {
     public static int pair(int... dice) {
         int score = 0;
         for (int die : dice) {
-            if (countDiceSameValue(die, dice) >= die * 2) {
-                score = score < die * 2 ? die * 2 : score;
+            int count = countDiceSameValue(die, dice);
+            if ((count >= 2) && ((die * 2) > score)) {
+                score = die * 2;
             }
         }
         return score;
     }
+
+    public static int twoPairs(int... dice) {
+        int score = 0, pairs = 0;
+        for (int die : dice) {
+            int count = countDiceSameValue(die, dice);
+            if (count >= 2 && score < die) {
+                pairs++;
+                score += die;
+            }
+        }
+        return pairs == 2 ? score * 2 : 0;
+    }
+
+    public static int threeOfKind(int... dice) {
+        int score = 0;
+        for (int die : dice) {
+            int count = countDiceSameValue(die, dice);
+            if ((count >= 3) && ((die * 3) > score)) {
+                score = die * 3;
+            }
+        }
+        return score;
+    }
+
+    public static int fourOfKind(int... dice) {
+        int score = 0;
+        for (int die : dice) {
+            int count = countDiceSameValue(die, dice);
+            if ((count >= 4) && ((die * 4) > score)) {
+                score = die * 4;
+            }
+        }
+        return score;
+    }
+
+    public static int smallStraight(int... dice) {
+        int score = 0;
+        for (int die : dice) {
+            score += die;
+        }
+        return score == 15 ? score : 0;
+    }
+
+    public static int largeStraight(int... dice) {
+        int score = 0;
+        for (int die : dice) {
+            score += die;
+        }
+        return score == 20 ? score : 0;
+    }
+
+    public static int fullHouse(int... dice) {
+
+        for (int die : dice) {
+            int count = countDiceSameValue(die, dice);
+            //TODO: no funciona
+        }
+        return 0;
+    }
+
 }

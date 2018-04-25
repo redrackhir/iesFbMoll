@@ -16,6 +16,8 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        int[] dice = {1, 1, 2, 2, 2};
+        System.out.println(Yatzy.fullHouse(dice));
     }
-    
+
 }
