@@ -1,32 +1,34 @@
 package codewars;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-/**
- *
- * @author red rackhir
- */
 public class CodeWarsTest {
 
-    public CodeWarsTest() {
+    /* @Test
+    public void testSimpleDirReduc() throws Exception {
+    assertEquals("\"NORTH\", \"SOUTH\", \"SOUTH\", \"EAST\", \"WEST\", \"NORTH\", \"WEST\"",
+    new String[]{"WEST"},
+    CodeWars.dirReduc(new String[]{"NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"}));
+    
+    assertEquals("\"NORTH\", \"WEST\", \"SOUTH\", \"EAST\"",
+    new String[]{"NORTH", "WEST", "SOUTH", "EAST"},
+    CodeWars.dirReduc(new String[]{"NORTH", "WEST", "SOUTH", "EAST"}));
+    }*/
+    @Test
+    public void example() {
+        assertEquals(0, Dinglemouse.deadAntCount("ant ant ant ant"));
+        assertEquals(0, Dinglemouse.deadAntCount(null));
+        assertEquals(2, Dinglemouse.deadAntCount("ant anantt aantnt"));
+        assertEquals(1, Dinglemouse.deadAntCount("ant ant .... a nt"));
     }
 
-    /**
-     * Test of main method, of class CodeWars.
-     */
     @Test
-    public void testMain() {
-        assertEquals("42 -9", CodeWars.HighAndLow("8 3 -5 42 -1 0 0 -9 4 7 4 -4"));
+    public void test1() {
+        String art[] = new String[]{"ZBAR 200", "CDXE 500", "BKWR 250", "BTSQ 890", "DRTY 600"};
+        String cd[] = new String[]{"A", "B"};
+        assertEquals("(A : 0) - (B : 1140)",
+                StockList.stockSummary(art, cd));
     }
 
-    @Test
-    public void findTest() {
-        assertEquals(5, CodeWars.findIt(new int[]{20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5}));
-        assertEquals(-1, CodeWars.findIt(new int[]{1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5}));
-        assertEquals(5, CodeWars.findIt(new int[]{20, 1, 1, 2, 2, 3, 3, 5, 5, 4, 20, 4, 5}));
-        assertEquals(10, CodeWars.findIt(new int[]{10}));
-        assertEquals(10, CodeWars.findIt(new int[]{1, 1, 1, 1, 1, 1, 10, 1, 1, 1, 1}));
-        assertEquals(1, CodeWars.findIt(new int[]{5, 4, 3, 2, 1, 5, 4, 3, 2, 10, 10}));
-    }
 }
