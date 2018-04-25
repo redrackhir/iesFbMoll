@@ -89,5 +89,13 @@ public class Empresario {
     public static ArrayList<Maquina> getMaquinas() {
         return maquinas;
     }
+    
+    public static void nextTurn() {
+        // Pasa turno por cada maquina
+        for (Maquina m:getMaquinas()) {
+            m.nextTurn();
+        }
+    }
+    
 
 }

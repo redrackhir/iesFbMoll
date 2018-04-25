@@ -12,6 +12,8 @@ import empresario.view.FrmMaquina;
 import empresario.view.FrmMaquinasOverview;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -20,6 +22,7 @@ import javax.swing.JMenuItem;
 public class ActsMain {
 
     private FrmMain frame;
+    private FrmMaquinasOverview frmOverview;
 
     public ActsMain(FrmMain frame) {
         this.frame = frame;
@@ -54,8 +57,19 @@ public class ActsMain {
     }
 
     public void showMachinesOverview() {
-        FrmMaquinasOverview maq = new FrmMaquinasOverview();
-        maq.setVisible(true);
-        frame.getjDesktopPane1().add(maq);
+        if (frmOverview == null) {
+            frmOverview = new FrmMaquinasOverview();
+            frmOverview.setTitle("Listado de máquinas");
+            frmOverview.setClosable(true);
+            frmOverview.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+            frame.getjDesktopPane1().add(frmOverview);
+            
+        } else { frmOverview.refreshData(); }
+        frmOverview.setVisible(true);
+    }
+
+    public void nextTurn() {
+        Empresario.nextTurn();
+        showMachinesOverview();
     }
 }
