@@ -126,10 +126,19 @@ public class Yatzy {
     }
 
     public static int fullHouse(int... dice) {
-
+        int pair = 0, trio = 0;
         for (int die : dice) {
             int count = countDiceSameValue(die, dice);
-            //TODO: no funciona
+            switch (count) {
+                case 2:
+                    pair = die;
+                    break;
+                case 3:
+                    trio = die;
+            }
+        }
+        if ((pair > 0 && trio > 0) & pair != trio) {
+            return (pair * 2) + (trio * 3);
         }
         return 0;
     }
