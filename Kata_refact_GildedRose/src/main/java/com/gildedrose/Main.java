@@ -22,6 +22,7 @@ public class Main {
             new ArticuloSulfuras("Sulfuras, Hand of Ragnaros", 3, 5)};
 
         miTienda = new GildedRose(items);
+        Tienda.getInstance().
 
         decay(5);
 
