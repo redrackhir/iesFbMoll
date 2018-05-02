@@ -20,7 +20,7 @@ public class RWTextFile {
 
     public String readFile(String fileName) {
         String data;
-        String line;
+        String line = "";
         try {
             FileReader fr = new FileReader(fileName);
             BufferedReader bf = new BufferedReader(fr);
@@ -33,6 +33,6 @@ public class RWTextFile {
         } catch (IOException ex) {
             Logger.getLogger(RWTextFile.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return line;
     }
 }

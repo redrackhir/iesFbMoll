@@ -126,10 +126,10 @@ public class Yatzy {
     }
 
     public static int fullHouse(int... dice) {
-
+        int pair=0,trio=0;
         for (int die : dice) {
             int count = countDiceSameValue(die, dice);
-            //TODO: no funciona
+            
         }
         return 0;
     }
