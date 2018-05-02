@@ -1,5 +1,6 @@
 package codewars;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,6 +22,11 @@ public class CodeWars {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println(PhoneDir.phone("/+1-541-754-3010 156 Alphand_St. <J Steeve>\n"
+                + " 133, Green, Rd. <E Kustur> NY-56423 ;+1-541-914-3010!\n"
+                + "<Anastasia> +48-421-674-8974 Via Quirinal Roma\n", "1-541-754-3010"));
+        //System.out.println(HumanReadableTime.makeReadable(359999));
+        /*
         String art[] = new String[]{"ZBAR 200", "CDXE 500", "BKWR 250", "BTSQ 890", "DRTY 600"};
         String cd[] = new String[]{"A", "B"};
         System.out.println("(A : 0) - (B : 1140)");

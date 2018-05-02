@@ -30,6 +30,7 @@ public class Empresario {
 
     private static ArrayList<Maquina> maquinas = new ArrayList<>();
     private static Stock stock;
+    private static double money = 150f;
 
     /**
      * @param args the command line arguments
@@ -95,6 +96,10 @@ public class Empresario {
         for (Maquina m:getMaquinas()) {
             m.nextTurn();
         }
+    }
+
+    public static double getMoney() {
+        return money;
     }
     
 

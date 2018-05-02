@@ -43,9 +43,9 @@ public class Maquina {
 
     public void nextTurn() {
         if (!enabled) {
+            System.out.println("Máquina '"+name+"' parada!");
             return;
         }
-        System.out.println("------------- next turn --------------");
         // Products consumed and produced
         double produced = 0;
         if (beltQty + prodXTurn <= beltCapacity) {
@@ -58,6 +58,9 @@ public class Maquina {
         }
         // Energy consumed
         energyConsumed += energyConsumption;
+        String txt = "Máquina '%s' ha producido: %s uds.\nHa consumido: ??";
+        Object[] args = new Object[]{name,produced};
+        System.out.println(String.format(txt,args));
     }
 
     public void enable() {

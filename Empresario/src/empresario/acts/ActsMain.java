@@ -11,8 +11,8 @@ import empresario.view.FrmMain;
 import empresario.view.FrmMaquina;
 import empresario.view.FrmMaquinasOverview;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 /**
@@ -45,8 +45,15 @@ public class ActsMain {
             menuItem.setText(maq.getName() + "_" + maq.getUid());
             frame.getjMenu1().add(menuItem);
         }
+        
+        showDataInToolBar();
     }
 
+    private void showDataInToolBar() {
+        JLabel label = frame.getjLabel1();
+        label.setText(String.format("%.2f€", Empresario.getMoney()));
+    }
+    
     private void showMachine(ActionEvent evt) {
         int index = Integer.valueOf(evt.getActionCommand()) - 1;
         FrmMaquina maq = new FrmMaquina(Empresario.getMaquina(index));
@@ -69,7 +76,11 @@ public class ActsMain {
     }
 
     public void nextTurn() {
+        // produccion de maquinas
         Empresario.nextTurn();
         showMachinesOverview();
+        
+        // almacenaje
     }
+
 }
