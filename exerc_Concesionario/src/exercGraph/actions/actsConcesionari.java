@@ -2,7 +2,6 @@ package exercGraph.actions;
 
 import exercGraph.view.FrmConcesionari;
 import java.awt.Dimension;
-import javax.swing.JRadioButton;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

@@ -14,4 +14,9 @@ public abstract class Lavadora {
 		tieneMandos = true;
 	}
 
+    @Override
+    public String toString() {
+        return "Lavadora{" + "tieneTambor=" + tieneTambor + ", tieneMandos=" + tieneMandos + ", tipoCarga=" + tipoCarga + '}';
+    }
+
 }
