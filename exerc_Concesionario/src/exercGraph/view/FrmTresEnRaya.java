@@ -1,9 +1,10 @@
 package exercGraph.view;
 
 import exercGraph.actions.actsTresEnRaya;
-import javax.swing.JLabel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,7 +26,7 @@ public class FrmTresEnRaya extends javax.swing.JFrame {
         initComponents();
         actions = new actsTresEnRaya(this);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

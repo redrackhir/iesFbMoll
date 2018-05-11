@@ -294,6 +294,11 @@ public class FrmConcesionari extends javax.swing.JFrame {
         });
 
         jButton2.setText("Reiniciar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -343,6 +348,10 @@ public class FrmConcesionari extends javax.swing.JFrame {
     private void onChangeColor(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onChangeColor
         actions.setColor(evt.getActionCommand());
     }//GEN-LAST:event_onChangeColor
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        actions.resetValues();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupColor;

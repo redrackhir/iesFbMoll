@@ -97,4 +97,11 @@ public class actsConcesionari {
         frame.getRbRojo().setSelected(true);
     }
 
+    public void resetValues() {
+        initComponents();
+        frame.getLblResultado().setText("Seleccione opciones del vehículo.");
+        // Seleccionar primera pestaña
+        frame.getjTabbedPane1().setSelectedIndex(0);
+    }
+
 }
