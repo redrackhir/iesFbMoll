@@ -7,6 +7,7 @@ package exerc_clock.controller;
 
 import exerc_clock.view.FrmMain;
 import exerc_clock.view.FrmSetNewAlarm;
+import exerc_clock.view.FrmSetNewTimer;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,6 +59,11 @@ public class ActionsMain {
 
     public void showSetNewAlarm() {
         FrmSetNewAlarm frm = new FrmSetNewAlarm();
+        frm.setVisible(true);
+    }
+
+    public void showSetNewTimer() {
+        FrmSetNewTimer frm = new FrmSetNewTimer();
         frm.setVisible(true);
     }
 }
