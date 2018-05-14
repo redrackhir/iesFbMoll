@@ -135,7 +135,7 @@ public class FrmSetNewTimer extends javax.swing.JFrame {
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        actions.startTimer();
+        actions.startStopTimer();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

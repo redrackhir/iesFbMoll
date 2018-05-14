@@ -9,7 +9,12 @@ import exerc_clock.view.FrmSetNewTimer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import static javafx.util.Duration.hours;
 import javax.swing.Timer;
@@ -24,7 +29,7 @@ public class ActionsSetNewTimer {
     private FrmSetNewTimer frame;
     private boolean isTimerRunning = false;
     private Timer timer;
-    private Timestamp timestamp;
+    private LocalTime countDown = LocalTime.of(0, 0);
 
     public ActionsSetNewTimer(FrmSetNewTimer frame) {
         this.frame = frame;
@@ -46,45 +51,54 @@ public class ActionsSetNewTimer {
     }
 
     public void setTimerTime(ChangeEvent evt) {
-        int hours = 0, mins = 0, secs = 0;
-        if (evt.getSource().equals(frame.getjSlider1())) {
-            hours = frame.getjSlider1().getValue();
-        }
-        if (evt.getSource().equals(frame.getjSlider2())) {
-            mins = frame.getjSlider2().getValue();
-        }
-        if (evt.getSource().equals(frame.getjSlider3())) {
-            secs = frame.getjSlider3().getValue();
-        }
-        timestamp.setHo
-        
-        checkTimer();
+        countDown = LocalTime.of(0, 0);
+        countDown = countDown.plusHours(frame.getjSlider1().getValue());
+        countDown = countDown.plusMinutes(frame.getjSlider2().getValue());
+        countDown = countDown.plusSeconds(frame.getjSlider3().getValue());
+
+        refreshTimerView();
     }
 
     private void checkTimer() {
-        Date hora = new Date();
         Color c = Color.black;
-        if (hora.getHours() == hours && hora.getMinutes() == mins && timer.isRunning()) {
-            if (hora.getSeconds() >= secs && hora.getSeconds() <= secs + 10) {
-                c = hora.getSeconds() % 2 == 0 ? Color.cyan : Color.orange;
-            }
-            // Suena la timera
+        if (countDown.get(ChronoField.MILLI_OF_DAY) <= 0 & isTimerRunning) {
+            // Suena el timbre
+            c = new Date().getSeconds() % 2 == 0 ? Color.cyan : Color.orange;
             frame.getjLabel1().setForeground(c);
             frame.getjLabel1().setText("Timer!!!");
         } else {
+            countDown = countDown.minusSeconds(1);
             c = timer.isRunning() ? new Color(50, 200, 50) : Color.black;
             frame.getjLabel1().setForeground(c);
-            frame.getjLabel1().setText(String.format("%02d:%02d.%02d", hours, mins, secs));
         }
+        refreshTimerView();
     }
 
-    public void startTimer() {
+    private void refreshTimerView() {
+        int hours = countDown.getHour();
+        int minutes = countDown.getMinute();
+        int seconds = countDown.getSecond();
+
+        frame.getjLabel1().setText(String.format("%02d:%02d.%02d", hours, minutes, seconds));
+    }
+
+    public void startStopTimer() {
         isTimerRunning = !isTimerRunning;
         if (timer.isRunning()) {
             timer.stop();
+            frame.getjButton1().setText("Start");
         } else {
             timer.start();
+            frame.getjButton1().setText("Stop");
         }
+        bloqControls();
+    }
+
+    private void bloqControls() {
+        // Bloquea los sliders si esta el temporizador en marcha
+        frame.getjSlider1().setEnabled(!isTimerRunning);
+        frame.getjSlider2().setEnabled(!isTimerRunning);
+        frame.getjSlider3().setEnabled(!isTimerRunning);
     }
 
 }
