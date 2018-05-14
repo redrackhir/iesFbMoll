@@ -45,11 +45,13 @@ public class actsLogin {
     public void checkLogin() {
         // Comprobar login
         if (tfUser.getText().equalsIgnoreCase("redrackhir") && tfPassword.getText().equals("1234")) {
-            lblInfo.setText("Acceso permitido");
-            lblInfo.setForeground(Color.green);
+            lblInfo.setText("<html>Bienvenido " + tfUser.getText()+ "<br>En breves momentos será redirigido.</html>");
+            lblInfo.getParent().revalidate();
+            lblInfo.setForeground(new Color(50, 150, 50));
+            lblSendMail.setVisible(false);
         } else {
             lblInfo.setText("Acceso denegado");
-            lblInfo.setForeground(Color.red);
+            lblInfo.setForeground(new Color(150, 50, 50));
             lblSendMail.setVisible(true);
         }
     }
