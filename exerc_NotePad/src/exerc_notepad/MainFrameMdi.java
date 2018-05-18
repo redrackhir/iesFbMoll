@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 public class MainFrameMdi extends javax.swing.JFrame {
 
     private ActsMainFrame actions;
+    private boolean hasChanges;
 
     /**
      * Creates new form MainFrameMdi
@@ -47,6 +48,11 @@ public class MainFrameMdi extends javax.swing.JFrame {
         copyMenuItem = new javax.swing.JMenuItem();
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
+        findMenu = new javax.swing.JMenu();
+        findWordMenuItem = new javax.swing.JMenuItem();
+        findNextMenuItem = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        countWordsMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -54,10 +60,25 @@ public class MainFrameMdi extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NoTitle - Java NotePad");
         setPreferredSize(new java.awt.Dimension(600, 400));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setPreferredSize(null);
+        jTextArea1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextArea1CaretUpdate(evt);
+            }
+        });
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -118,21 +139,72 @@ public class MainFrameMdi extends javax.swing.JFrame {
 
         cutMenuItem.setMnemonic('t');
         cutMenuItem.setText("Cut");
+        cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cutMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(cutMenuItem);
 
         copyMenuItem.setMnemonic('y');
         copyMenuItem.setText("Copy");
+        copyMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(copyMenuItem);
 
         pasteMenuItem.setMnemonic('p');
         pasteMenuItem.setText("Paste");
+        pasteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasteMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(pasteMenuItem);
 
         deleteMenuItem.setMnemonic('d');
         deleteMenuItem.setText("Delete");
+        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(deleteMenuItem);
 
         menuBar.add(editMenu);
+
+        findMenu.setText("Tools");
+
+        findWordMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        findWordMenuItem.setText("Find word");
+        findWordMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findWordMenuItemActionPerformed(evt);
+            }
+        });
+        findMenu.add(findWordMenuItem);
+
+        findNextMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        findNextMenuItem.setText("Find next");
+        findNextMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findNextMenuItemActionPerformed(evt);
+            }
+        });
+        findMenu.add(findNextMenuItem);
+        findMenu.add(jSeparator1);
+
+        countWordsMenuItem.setText("Count words");
+        countWordsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countWordsMenuItemActionPerformed(evt);
+            }
+        });
+        findMenu.add(countWordsMenuItem);
+
+        menuBar.add(findMenu);
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
@@ -179,6 +251,47 @@ public class MainFrameMdi extends javax.swing.JFrame {
         actions.saveFileAs();
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        actions.onClosingWindow();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+        hasChanges = true;
+
+    }//GEN-LAST:event_jTextArea1KeyTyped
+
+    private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
+        actions.cutWord();
+    }//GEN-LAST:event_cutMenuItemActionPerformed
+
+    private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
+        actions.copyWord();
+    }//GEN-LAST:event_copyMenuItemActionPerformed
+
+    private void pasteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteMenuItemActionPerformed
+        actions.pasteWord();
+    }//GEN-LAST:event_pasteMenuItemActionPerformed
+
+    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
+        actions.deleteWord();
+    }//GEN-LAST:event_deleteMenuItemActionPerformed
+
+    private void findWordMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findWordMenuItemActionPerformed
+        actions.findWord();
+    }//GEN-LAST:event_findWordMenuItemActionPerformed
+
+    private void findNextMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findNextMenuItemActionPerformed
+        actions.findNext();
+    }//GEN-LAST:event_findNextMenuItemActionPerformed
+
+    private void jTextArea1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextArea1CaretUpdate
+        actions.resetSelectionColors();
+    }//GEN-LAST:event_jTextArea1CaretUpdate
+
+    private void countWordsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countWordsMenuItemActionPerformed
+        actions.countWords();
+    }//GEN-LAST:event_countWordsMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,14 +331,19 @@ public class MainFrameMdi extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
+    private javax.swing.JMenuItem countWordsMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenu findMenu;
+    private javax.swing.JMenuItem findNextMenuItem;
+    private javax.swing.JMenuItem findWordMenuItem;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
@@ -236,6 +354,10 @@ public class MainFrameMdi extends javax.swing.JFrame {
 
     public JTextArea getjTextArea1() {
         return jTextArea1;
+    }
+
+    public boolean isTextChanged() {
+        return hasChanges;
     }
 
 }
