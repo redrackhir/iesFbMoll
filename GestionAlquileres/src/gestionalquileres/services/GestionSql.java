@@ -28,9 +28,9 @@ import javax.swing.table.DefaultTableModel;
 public class GestionSql {
 
     static final String DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/mydatabase";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/gestion_alquileres";
     static final String USER = "root";
-    static final String PASS = "";
+    static final String PASS = "159753";
     private static Connection conn = null;
 
     /**
@@ -99,7 +99,7 @@ public class GestionSql {
                     columnas.add(metaDatos.getColumnName(columna));
                 }
                 // Datos de la tabla
-                Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+                Vector<Vector<Object>> data = new Vector<>();
                 while (rst.next()) {
                     Vector<Object> vector = new Vector<Object>();
                     for (int idColumna = 1; idColumna <= nroColumnas; idColumna++) {

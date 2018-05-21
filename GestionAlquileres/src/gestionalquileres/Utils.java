@@ -8,6 +8,11 @@ package gestionalquileres;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
@@ -61,6 +66,21 @@ public class Utils {
             retVal = text;
         } 
         return retVal;
+    }
+
+    public static String dateToString(Date fechaFin) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy") ;
+            return sdf.format(fechaFin);
+    }
+    
+    public static Date stringToDate(String strDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy") ;
+        try {
+            return (Date) sdf.parse(strDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

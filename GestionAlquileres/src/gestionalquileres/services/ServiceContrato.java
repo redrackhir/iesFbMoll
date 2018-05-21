@@ -8,12 +8,13 @@ package gestionalquileres.services;
 import gestionalquileres.Utils;
 import static gestionalquileres.services.GestionSql.closeConn;
 import static gestionalquileres.services.GestionSql.openConn;
-import gestionalquileres.model.Cliente;
+import gestionalquileres.model.Contrato;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -23,34 +24,36 @@ import javax.swing.JOptionPane;
  *
  * @author red rackhir
  */
-public class ServiceCliente {
+public class ServiceContrato {
 
     private static Connection conn = null;
     private static final int MODE_INSERT = 1;
     private static final int MODE_UPDATE = 2;
+    private static final String PRIMARY_KEY = "Id";
+    private static final String[] FIELDS = {"Id", "ref_finca", "ref_inquilino", "fecha_inicio",
+        "fecha_fin", "fecha_firma", "refDocumento", "tipo_contrato", "precio_inicial", "revision"};
 
     /**
-     * Devuelve un objeto Cliente dede la BBDD
+     * Devuelve un objeto Contrato dede la BBDD
      *
-     * @param idCliente ID del cliente a consultar
-     * @return Objeto Cliente
+     * @param idContrato ID del contrato a consultar
+     * @return Objeto Contrato
      */
-    public static Cliente getCliente(String idCliente) {
+    public static Contrato getContrato(int idContrato) {
         try {
             conn = openConn();
             if (conn != null) {
-                String sql = "SELECT * FROM clientes "
-                        + "WHERE dni = '" + idCliente + "'";
+                String sql = "SELECT * FROM contratos "
+                        + "WHERE Id = '" + idContrato + "'";
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 rs.next();
-                Cliente cli = new Cliente(rs.getString("DNI"), rs.getString("Nombre"),
-                        rs.getString("Apellido1"), rs.getString("Apellido2"),
-                        rs.getString("Domicilio"), rs.getString("Telf1"),
-                        rs.getString("Telf2"), rs.getString("Email"),
-                        rs.getString("Comentarios"), rs.getString("Poblacion"),
-                        rs.getInt("CP"), rs.getDouble("Saldo"));
-                return cli;
+                Contrato contr = new Contrato(rs.getInt("ID"), rs.getInt("ref_Finca"),
+                        rs.getString("ref_Inquilino"), rs.getDate("fecha_Inicio"),
+                        rs.getDate("fecha_Fin"), rs.getDate("fecha_Firma"),
+                        rs.getString("refDocumento"), rs.getString("tipo_Contrato"),
+                        rs.getFloat("precio_Inicial"), rs.getString("Revision"));
+                return contr;
             }
         } catch (SQLException ex) {
             String msg = "SQL Error: " + ex.getMessage();
@@ -63,17 +66,27 @@ public class ServiceCliente {
     }
 
     /**
-     * Inserta un nuevo cliente en la BBDD
+     * Inserta un nuevo contrato en la BBDD
      *
-     * @param cli Objeto cliente a guardar
+     * @param cli Objeto contrato a guardar
      */
-    public static void insert(Cliente cli) {
+    public static void insert(Contrato cli) {
         try {
             conn = openConn();
             if (conn != null) {
-                String sql = "INSERT INTO clientes (dni, nombre, apellido1, apellido2, "
-                        + "domicilio, telf1, telf2, cp, poblacion, saldo, email, comentarios) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                String sql = "INSERT INTO contratos (";
+                for (String f : FIELDS) {
+                    sql += f + ", ";
+                }
+                sql = sql.substring(0, sql.length() - 2);
+
+                sql += "VALUES (";
+                for (int i = 0; i < FIELDS.length; i++) {
+                    sql += "?, ";
+                }
+                sql = sql.substring(0, sql.length() - 2);
+                sql += ");";
+
                 int idx = 1;
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 assignValues(stmt, cli, MODE_INSERT);
@@ -87,7 +100,7 @@ public class ServiceCliente {
                 }
             }
         } catch (SQLException ex) {
-            String msg = ("Error al insertar cliente: " + ex.getMessage());
+            String msg = ("Error al insertar contrato: " + ex.getMessage());
             JOptionPane.showMessageDialog(null, msg, "Atención!!", JOptionPane.WARNING_MESSAGE);
         } finally {
             closeConn();
@@ -95,58 +108,54 @@ public class ServiceCliente {
 
     }
 
-    private static void assignValues(PreparedStatement stmt, Cliente cli, int mode) throws SQLException {
+    private static void assignValues(PreparedStatement stmt, Contrato cli, int mode) throws SQLException {
         int idx = 1;
         if (mode == MODE_INSERT) {
-            stmt.setString(idx, cli.getDni());
+            stmt.setInt(idx, cli.getId());
             idx++;
         }
-        stmt.setString(idx, cli.getNombre());
+        stmt.setInt(idx, cli.getRefFinca());
         idx++;
-        stmt.setString(idx, cli.getApellido1());
+        stmt.setString(idx, cli.getRefInquilino());
         idx++;
-        stmt.setString(idx, cli.getApellido2());
+        stmt.setDate(idx, cli.getFechaInicio());
         idx++;
-        stmt.setString(idx, cli.getDomicilio());
+        stmt.setDate(idx, cli.getFechaFin());
         idx++;
-        stmt.setString(idx, cli.getTelf1());
+        stmt.setDate(idx, cli.getFechaFirma());
         idx++;
-        stmt.setString(idx, cli.getTelf2());
+        stmt.setString(idx, cli.getRefDoc());
         idx++;
-        stmt.setInt(idx, cli.getCP());
+        stmt.setString(idx, cli.getTipoContrato());
         idx++;
-        stmt.setString(idx, cli.getPoblacion());
+        stmt.setFloat(idx, cli.getPrecioInicial());
         idx++;
-        stmt.setDouble(idx, cli.getSaldo());
-        idx++;
-        stmt.setString(idx, cli.getEmail());
-        idx++;
-        stmt.setString(idx, cli.getComentarios());
-        idx++;
+        stmt.setString(idx, cli.getTipoRevision());
     }
 
     /**
-     * Modifica el objeto Cliente en la BBDD
+     * Modifica el objeto Contrato en la BBDD
      *
-     * @param cli Objeto Cliente
+     * @param cli Objeto Contrato
      */
-    public static void update(Cliente cli) {
+    public static void update(Contrato cli) {
         try {
             conn = openConn();
             if (conn != null) {
-                String sql = "UPDATE clientes SET nombre = ?, apellido1 = ?, apellido2 = ?, "
-                        + "domicilio = ?, telf1 = ?, telf2 = ?, cp = ?, poblacion = ?, saldo = ?, "
-                        + "email = ?, comentarios = ? "
-                        + "WHERE dni = '" + cli.getDni() + "'";
+                String sql = "UPDATE contratos SET ";
+                for (String f : FIELDS) {
+                    sql += f + " = ?";
+                }
+                sql += "WHERE dni = '" + cli.getId() + "'";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 assignValues(stmt, cli, MODE_UPDATE);
                 stmt.executeUpdate();
 
-                String str = "Cliente " + cli.getNombre() + " actualizado!!";
+                String str = "Contrato " + cli.getId() + " actualizado!!";
                 Logger.getLogger(Utils.class.getName()).log(Level.INFO, "Actualización", str);
             }
         } catch (SQLException ex) {
-            String msg = ("Error al actualizar cliente: " + ex.getMessage());
+            String msg = ("Error al actualizar contrato: " + ex.getMessage());
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(null, msg, "Atención!!", JOptionPane.ERROR_MESSAGE);
         } finally {
@@ -154,17 +163,17 @@ public class ServiceCliente {
         }
     }
 
-    public static boolean delete(String idCliente) {
+    public static boolean delete(String idContrato) {
         try {
             conn = openConn();
             if (conn != null) {
-                String sql = "DELETE FROM clientes "
-                        + "WHERE dni = '" + idCliente + "'";
+                String sql = "DELETE FROM contratos "
+                        + "WHERE " + PRIMARY_KEY + " = '" + idContrato + "'";
                 Statement stmt = conn.createStatement();
                 return stmt.execute(sql);
             }
         } catch (SQLException ex) {
-            String msg = ("Error al actualizar cliente: " + ex.getMessage());
+            String msg = ("Error al actualizar contrato: " + ex.getMessage());
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(null, msg, "Atención!!", JOptionPane.ERROR_MESSAGE);
         } finally {
@@ -181,17 +190,21 @@ public class ServiceCliente {
      * @param selectedIndex Indice seleccionado en el mismo
      * @param strSQL Instruccion SQL a ejecutar
      */
-    public static void rellenaComboBox(JComboBox combo, int selectedIndex, String strSQL) {
+    public static void populateComboBox(JComboBox combo, String selectedIndex, String nullIndexMessage, String strSQL) {
         try {
             conn = openConn();
             if (conn != null) {
                 Statement stmt = conn.createStatement();
                 combo.removeAllItems();
+                // Add default index selection null
+                if (selectedIndex == null) {
+                    combo.addItem(nullIndexMessage);
+                }
                 int idx = 0;
                 ResultSet rs = stmt.executeQuery(strSQL);
                 while (rs.next()) {
-                    combo.addItem(rs.getInt(1) + " - " + rs.getString(2));
-                    if (rs.getInt(1) == selectedIndex) {
+                    combo.addItem(rs.getString(1) + ": " + rs.getString(2));
+                    if (rs.getString(1).equals(selectedIndex)) {
                         combo.setSelectedIndex(idx);
                     }
                     idx++;
